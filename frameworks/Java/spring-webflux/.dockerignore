@@ -1,0 +1,6 @@
+*
+!/pom.xml
+!/common/
+!/mongo/
+!/r2dbc/
+**/target/

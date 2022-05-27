@@ -7,35 +7,40 @@ Netty is used for the async web server, with nearly everything configured with d
 A fixed thread pool of size equals to the number of database connections is used to run all the blocking code (jdbc database accesses) to not block netty's event loop.
 
 For postgresql access, there are four implementations.
-* [JdbcDbRepository](src/main/java/benchmark/JdbcDbRepository.java) is using JdbcTemplate.
-* [PgClientDbRepository](src/main/java/benchmark/PgClientDbRepository.java) is using reactive-pg-client
-* [RxJava2DbRepository](src/main/java/benchmark/RxJava2DbRepository.java) is using rxjava2-jdbc
-* [R2dbcDbRepository](src/main/java/benchmark/R2dbcDbRepository.java) is using r2dbc-postgresql
-For mongoDB access, spring-data-mongodb with reactive support is used. See [MongoDbRepository](src/main/java/benchmark/MongoDbRepository.java)
+* [JdbcDbRepository](frameworks/Java/spring-webflux/r2dbc/src/main/java/benchmark/JdbcDbRepository.java) is using
+  JdbcTemplate.
+* [PgClientDbRepository](frameworks/Java/spring-webflux/r2dbc/src/main/java/benchmark/PgClientDbRepository.java) is
+  using reactive-pg-client
+* [RxJava2DbRepository](frameworks/Java/spring-webflux/r2dbc/src/main/java/benchmark/RxJava2DbRepository.java) is using
+  rxjava2-jdbc
+* [R2dbcDbRepository](frameworks/Java/spring-webflux/r2dbc/src/main/java/benchmark/R2dbcDbRepository.java) is using
+  r2dbc-postgresql
+  For mongoDB access, spring-data-mongodb with reactive support is used.
+  See [MongoDbRepository](frameworks/Java/spring-webflux/r2dbc/src/main/java/benchmark/MongoDbRepository.java)
 
 ### Plaintext Test
 
-* [Plaintext test source](src/main/java/benchmark/web/WebfluxRouter.java)
+* [Plaintext test source](frameworks/Java/spring-webflux/r2dbc/src/main/java/benchmark/web/WebfluxRouter.java)
 
 ### JSON Serialization Test
 
-* [JSON test source](src/main/java/benchmark/web/WebfluxRouter.java)
+* [JSON test source](frameworks/Java/spring-webflux/r2dbc/src/main/java/benchmark/web/WebfluxRouter.java)
 
 ### Database Query Test
 
-* [Query test source](src/main/java/benchmark/web/WebfluxRouter.java)
+* [Query test source](frameworks/Java/spring-webflux/r2dbc/src/main/java/benchmark/web/WebfluxRouter.java)
 
 ### Database Queries Test
 
-* [Queries test source](src/main/java/benchmark/web/WebfluxRouter.java)
+* [Queries test source](frameworks/Java/spring-webflux/r2dbc/src/main/java/benchmark/web/WebfluxRouter.java)
 
 ### Database Update Test
 
-* [Update test source](src/main/java/benchmark/web/WebfluxRouter.java)
+* [Update test source](frameworks/Java/spring-webflux/r2dbc/src/main/java/benchmark/web/WebfluxRouter.java)
 
 ### Template rendering Test
 
-* [Template rendering test source](src/main/java/benchmark/web/WebfluxRouter.java)
+* [Template rendering test source](frameworks/Java/spring-webflux/r2dbc/src/main/java/benchmark/web/WebfluxRouter.java)
 
 ## Versions
 
