@@ -1,0 +1,7 @@
+*
+!/pom.xml
+!/spring-common/
+!/spring-jdbc/
+!/spring-jpa/
+!/spring-mongo/
+**/target/

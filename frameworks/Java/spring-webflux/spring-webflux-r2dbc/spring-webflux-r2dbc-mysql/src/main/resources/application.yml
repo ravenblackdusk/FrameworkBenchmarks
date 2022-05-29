@@ -1,0 +1,4 @@
+spring:
+  r2dbc:
+    url: r2dbc:mysql://tfb-database/hello_world
+#    url: r2dbc:mysql://localhost/hello_world

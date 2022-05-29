@@ -1,14 +1,11 @@
-FROM maven:3.6.1-jdk-11-slim as maven
+FROM maven:3-eclipse-temurin-11 as maven
 WORKDIR /spring
-COPY pom.xml pom.xml
-COPY common/ common/
-COPY mongo/ mongo/
-COPY r2dbc/ r2dbc/
-RUN mvn -pl r2dbc -am package -q
+COPY . .
+RUN mvn package -q
 
-FROM openjdk:11.0.3-jdk-slim
+FROM eclipse-temurin:11-jre
 WORKDIR /spring
-COPY --from=maven /spring/r2dbc/target/r2dbc-1.0-SNAPSHOT.jar app.jar
+COPY --from=maven /spring/spring-webflux-r2dbc/spring-webflux-r2dbc-postgres/target/spring-webflux-r2dbc-postgres-1.0-SNAPSHOT.jar app.jar
 
 EXPOSE 8080
 

@@ -1,4 +1,0 @@
-spring.data.mongodb:
-  host: tfb-database
-  #  host: localhost
-  database: hello_world

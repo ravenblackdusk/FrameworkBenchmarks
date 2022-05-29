@@ -1,0 +1,2 @@
+spring.datasource.url: jdbc:postgresql://tfb-database/hello_world
+#spring.datasource.url: jdbc:postgresql://localhost/hello_world

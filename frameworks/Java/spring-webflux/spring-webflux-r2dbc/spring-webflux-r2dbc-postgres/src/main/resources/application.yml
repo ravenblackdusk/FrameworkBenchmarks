@@ -1,0 +1,4 @@
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://tfb-database/hello_world
+#    url: r2dbc:postgresql://localhost/hello_world
