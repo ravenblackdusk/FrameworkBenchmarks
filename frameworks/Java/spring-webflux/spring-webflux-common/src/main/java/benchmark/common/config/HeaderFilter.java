@@ -8,12 +8,11 @@ import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
 import java.time.ZonedDateTime;
-import java.util.concurrent.atomic.AtomicReference;
 
 import static java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME;
 
 public class HeaderFilter implements WebFilter {
-    private static final AtomicReference<String> date = new AtomicReference<>(getDate());
+    private static volatile String date = getDate();
 
     private static String getDate() {
         return RFC_1123_DATE_TIME.format(ZonedDateTime.now());
@@ -21,14 +20,14 @@ public class HeaderFilter implements WebFilter {
 
     @Scheduled(fixedRate = 1000)
     void updateDate() {
-        date.set(getDate());
+        date = getDate();
     }
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         HttpHeaders headers = exchange.getResponse().getHeaders();
         headers.add("Server", "Webflux");
-        headers.add("Date", date.get());
+        headers.add("Date", date);
         return chain.filter(exchange);
     }
 }

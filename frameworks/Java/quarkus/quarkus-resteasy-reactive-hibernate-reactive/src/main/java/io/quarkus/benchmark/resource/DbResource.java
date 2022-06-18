@@ -1,10 +1,8 @@
 package io.quarkus.benchmark.resource;
 
 import io.quarkus.benchmark.model.World;
-import io.quarkus.benchmark.repository.WorldRepository;
-import io.smallrye.context.api.CurrentThreadContext;
+import io.quarkus.benchmark.service.WorldService;
 import io.smallrye.mutiny.Uni;
-import org.eclipse.microprofile.context.ThreadContext;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -15,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 
@@ -33,33 +32,31 @@ public class DbResource {
     }
 
     @Inject
-    WorldRepository worldRepository;
+    WorldService worldService;
+
+    private Stream<Uni<World>> getWorldStream(String queries) {
+        return randomIntStream().limit(parseQueryCount(queries)).mapToObj(worldService::findById);
+    }
 
     @GET
     @Path("db")
-    @CurrentThreadContext(propagated = {}, unchanged = ThreadContext.ALL_REMAINING)
     public Uni<World> db() {
-        return worldRepository.findStateless();
+        return worldService.findById(randomInt());
     }
 
     @GET
     @Path("queries")
-    @CurrentThreadContext(propagated = {}, unchanged = ThreadContext.ALL_REMAINING)
-    public Uni<List<World>> queries(@QueryParam("queries") String queries) {
-        final int queryCount = parseQueryCount(queries);
-        return worldRepository.findStateless(queryCount);
+    public Uni<List<World>> getQueries(@QueryParam("queries") String queries) {
+        return Uni.join().all(getWorldStream(queries).collect(toList())).andFailFast();
     }
 
     @GET
     @Path("updates")
-    @CurrentThreadContext(propagated = {}, unchanged = ThreadContext.ALL_REMAINING)
     public Uni<List<World>> updates(@QueryParam("queries") String queries) {
-        return Uni.join().all(randomIntStream().limit(parseQueryCount(queries))
-                .mapToObj(id -> worldRepository.inStatelessSession(it -> it.get(World.class, id)).map(it -> {
-                    it.setRandomnumber(randomInt());
-                    return it;
-                })).collect(toList())).andFailFast().flatMap(worlds -> worldRepository.inSession(
-                it -> it.setBatchSize(worlds.size()).persistAll(worlds.toArray()).map(unused -> worlds)));
+        return worldService.update(getWorldStream(queries).map(world -> world.map(it -> {
+            it.setRandomnumber(randomInt());
+            return it;
+        })));
     }
 
     private int parseQueryCount(String textValue) {

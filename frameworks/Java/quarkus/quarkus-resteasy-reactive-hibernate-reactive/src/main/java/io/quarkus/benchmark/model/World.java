@@ -1,27 +1,23 @@
 package io.quarkus.benchmark.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity
 public class World {
-    @Id
-    private int id;
+    private final int id;
     private int randomnumber;
+
+    public World(int id, int randomnumber) {
+        this.id = id;
+        this.randomnumber = randomnumber;
+    }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getRandomnumber() {
         return randomnumber;
     }
 
-    public void setRandomnumber(int randomNumber) {
-        this.randomnumber = randomNumber;
+    public void setRandomnumber(int randomnumber) {
+        this.randomnumber = randomnumber;
     }
 }

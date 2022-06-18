@@ -1,38 +1,32 @@
 package io.quarkus.benchmark.resource;
 
 import io.quarkus.benchmark.model.Fortune;
-import io.quarkus.benchmark.repository.FortuneRepository;
-import io.smallrye.context.api.CurrentThreadContext;
+import io.quarkus.benchmark.service.FortuneService;
+import io.quarkus.qute.Template;
 import io.smallrye.mutiny.Uni;
-import io.vertx.core.buffer.Buffer;
-import io.vertx.ext.web.templ.rocker.impl.VertxBufferOutput;
-import org.eclipse.microprofile.context.ThreadContext;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import java.util.Comparator;
+import java.util.stream.Stream;
+
+import static java.util.Comparator.comparing;
 
 @Path("/fortunes")
-public class FortuneResource  {
-
+public class FortuneResource {
     @Inject
-    FortuneRepository repository;
-
-    private static final Comparator<Fortune> fortuneComparator = Comparator.comparing(fortune -> fortune.getMessage());
+    FortuneService fortuneService;
+    @Inject
+    Template fortunes;
 
     @Produces("text/html; charset=UTF-8")
     @GET
-    @CurrentThreadContext(propagated = {}, cleared = {}, unchanged = ThreadContext.ALL_REMAINING)
-    public Uni<Buffer> fortunes() {
-        return repository.findAll()
-                .map(fortunes -> {
-                    fortunes.add(new Fortune(0, "Additional fortune added at request time."));
-                    fortunes.sort(fortuneComparator);
-                    return views.Fortunes.template(fortunes)
-                            .render(VertxBufferOutput.FACTORY)
-                            .getBuffer();
-                });
+    public Uni<String> fortunes() {
+        return Uni.combine().all().unis(fortuneService.findAll(),
+                        Uni.createFrom().item(fortuneService.create(0, "Additional fortune added at request time."))).asTuple()
+                .flatMap(tuple -> fortunes.data("fs",
+                        Stream.concat(tuple.getItem1().stream(), Stream.of(tuple.getItem2()))
+                                .sorted(comparing(Fortune::getMessage))).createUni());
     }
 }

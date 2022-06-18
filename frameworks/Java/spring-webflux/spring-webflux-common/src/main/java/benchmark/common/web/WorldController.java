@@ -59,8 +59,8 @@ public class WorldController<W extends WorldLike> {
 
     @GetMapping("/queries")
     public Flux<W> getQueries(String queries) {
-        return Flux.fromStream(randomIntStream().limit(parseQueryCount(queries)).boxed())
-                .flatMap(worldService::findById);
+        return Flux.fromStream(randomIntStream().limit(parseQueryCount(queries)).mapToObj(worldService::findById))
+                .flatMap(it -> it);
     }
 
     @GetMapping("/updates")

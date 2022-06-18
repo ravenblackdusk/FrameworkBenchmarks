@@ -1,20 +1,8 @@
 package io.quarkus.benchmark.model;
 
-import org.hibernate.annotations.Immutable;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.util.Objects;
-
-@Entity
-@Immutable
 public class Fortune {
-
-    @Id
-    private int id;
-    private String message;
-
-    public Fortune() {}
+    private final int id;
+    private final String message;
 
     public Fortune(int id, String message) {
         this.id = id;
@@ -25,31 +13,7 @@ public class Fortune {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getMessage() {
         return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        Fortune fortune = (Fortune) o;
-        return id == fortune.id &&
-                Objects.equals(message, fortune.message);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, message);
     }
 }

@@ -1,0 +1,12 @@
+quarkus:
+  datasource:
+    db-kind: postgresql
+    username: benchmarkdbuser
+    password: benchmarkdbpass
+    reactive:
+      url: postgresql://tfb-database:5432/hello_world
+"%dev":
+  quarkus:
+    datasource:
+      reactive:
+        url: postgresql://localhost:5432/hello_world
