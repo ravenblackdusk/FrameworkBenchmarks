@@ -1,0 +1,8 @@
+*
+!/pom.xml
+!/quarkus-common/
+!/quarkus-resteasy-hibernate/
+!/quarkus-resteasy-reactive-hibernate/
+!/quarkus-resteasy-reactive-hibernate-reactive/
+**/target/
+**/*.iml
