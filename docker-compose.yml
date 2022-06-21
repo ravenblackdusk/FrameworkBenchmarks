@@ -1,0 +1,13 @@
+version: "3.3"
+services:
+  postgres:
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 1m
+        max-file: "1"
+    image: techempower/postgres:latest
+    environment:
+      TZ: ${TZ}
+    ports:
+      - "5432:5432"

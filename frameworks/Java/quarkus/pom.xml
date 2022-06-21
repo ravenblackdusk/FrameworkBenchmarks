@@ -14,11 +14,13 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <quarkus.version>2.9.2.Final</quarkus.version>
+        <jandex-maven-plugin.version>1.2.2</jandex-maven-plugin.version>
     </properties>
 
     <modules>
         <module>quarkus-common</module>
-        <module>quarkus-resteasy-reactive-hibernate-reactive</module>
+        <module>quarkus-blocking-postgres</module>
+        <module>quarkus-reactive-postgres</module>
     </modules>
 
     <dependencyManagement>
@@ -36,6 +38,20 @@
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.jboss.jandex</groupId>
+                    <artifactId>jandex-maven-plugin</artifactId>
+                    <version>${jandex-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>make-index</id>
+                            <goals>
+                                <goal>jandex</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
                 <plugin>
                     <groupId>io.quarkus</groupId>
                     <artifactId>quarkus-maven-plugin</artifactId>

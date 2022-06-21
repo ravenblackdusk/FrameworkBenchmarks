@@ -1,0 +1,4 @@
+quarkus:
+  datasource:
+    username: benchmarkdbuser
+    password: benchmarkdbpass

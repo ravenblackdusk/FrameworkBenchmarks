@@ -18,7 +18,7 @@ platform = "JAX-RS"
 webserver = "Undertow"
 versus = "Netty"
 
-[resteasy-reactive-hibernate-reactive]
+[quarkus-reactive-postgres]
 urls.plaintext = "/plaintext"
 urls.json = "/json"
 urls.db = "/db"
