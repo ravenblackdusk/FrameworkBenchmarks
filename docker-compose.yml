@@ -11,3 +11,14 @@ services:
       TZ: ${TZ}
     ports:
       - "5432:5432"
+  mysql:
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 1m
+        max-file: "1"
+    image: techempower/mysql:latest
+    environment:
+      TZ: ${TZ}
+    ports:
+      - "3306:3306"

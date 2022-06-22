@@ -1,7 +1,7 @@
 *
 !/pom.xml
 !/quarkus-common/
-!/quarkus-blocking-postgres/
-!/quarkus-reactive-postgres/
+!/quarkus-blocking/
+!/quarkus-reactive/
 **/target/
 **/*.iml

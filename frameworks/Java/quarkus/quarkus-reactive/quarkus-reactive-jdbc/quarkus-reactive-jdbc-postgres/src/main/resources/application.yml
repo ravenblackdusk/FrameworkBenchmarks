@@ -1,0 +1,10 @@
+quarkus:
+  datasource:
+    db-kind: postgresql
+    reactive:
+      url: postgresql://tfb-database/hello_world
+"%dev":
+  quarkus:
+    datasource:
+      reactive:
+        url: postgresql://localhost/hello_world

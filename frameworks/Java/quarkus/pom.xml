@@ -19,8 +19,8 @@
 
     <modules>
         <module>quarkus-common</module>
-        <module>quarkus-blocking-postgres</module>
-        <module>quarkus-reactive-postgres</module>
+        <module>quarkus-blocking</module>
+        <module>quarkus-reactive</module>
     </modules>
 
     <dependencyManagement>

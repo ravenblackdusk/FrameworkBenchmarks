@@ -1,0 +1,10 @@
+quarkus:
+  datasource:
+    db-kind: mysql
+    jdbc:
+      url: jdbc:mysql://tfb-database/hello_world
+"%dev":
+  quarkus:
+    datasource:
+      jdbc:
+        url: jdbc:mysql://localhost/hello_world
