@@ -1,6 +1,8 @@
-package benchmark.model;
+package benchmark.reactive.jdbc.model;
 
-public class World {
+import benchmark.model.WorldLike;
+
+public class World implements WorldLike {
     private final int id;
     private int randomnumber;
 
@@ -9,14 +11,17 @@ public class World {
         this.randomnumber = randomnumber;
     }
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public int getRandomnumber() {
         return randomnumber;
     }
 
+    @Override
     public void setRandomnumber(int randomnumber) {
         this.randomnumber = randomnumber;
     }

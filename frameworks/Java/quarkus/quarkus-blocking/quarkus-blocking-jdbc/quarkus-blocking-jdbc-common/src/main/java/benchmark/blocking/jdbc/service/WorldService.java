@@ -1,7 +1,8 @@
 package benchmark.blocking.jdbc.service;
 
+import benchmark.blocking.jdbc.model.World;
 import benchmark.blocking.service.WorldLikeService;
-import benchmark.model.World;
+import benchmark.model.WorldLike;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -34,10 +35,11 @@ public class WorldService implements WorldLikeService {
     }
 
     @Override
-    public List<World> update(List<World> worlds) {
-        try (Connection connection = dataSource.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(
-                "update world set randomnumber = ? where id = ?")) {
-            for (World world : worlds) {
+    public List<WorldLike> update(List<WorldLike> worlds) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "update world set randomnumber = ? where id = ?")) {
+            for (WorldLike world : worlds) {
                 preparedStatement.setInt(1, world.getRandomnumber());
                 preparedStatement.setInt(2, world.getId());
                 preparedStatement.addBatch();

@@ -1,11 +1,11 @@
 package benchmark.blocking.service;
 
-import benchmark.model.Fortune;
+import benchmark.model.FortuneLike;
 
 import java.util.List;
 
 public interface FortuneLikeService {
-    List<? extends Fortune> findAllFortunes();
+    List<? extends FortuneLike> findAllFortunes();
 
-    Fortune create(int id, String message);
+    FortuneLike create(int id, String message);
 }

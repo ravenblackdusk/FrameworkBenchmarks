@@ -1,12 +1,12 @@
 package benchmark.reactive.service;
 
-import benchmark.model.Fortune;
+import benchmark.model.FortuneLike;
 import io.smallrye.mutiny.Uni;
 
 import java.util.List;
 
 public interface FortuneLikeService {
-    Uni<List<Fortune>> findAllFortunes();
+    Uni<? extends List<? extends FortuneLike>> findAllFortunes();
 
-    Fortune create(int id, String message);
+    FortuneLike create(int id, String message);
 }

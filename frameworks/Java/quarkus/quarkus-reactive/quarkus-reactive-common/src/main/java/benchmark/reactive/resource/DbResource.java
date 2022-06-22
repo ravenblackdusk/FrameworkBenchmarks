@@ -1,6 +1,6 @@
 package benchmark.reactive.resource;
 
-import benchmark.model.World;
+import benchmark.model.WorldLike;
 import benchmark.reactive.service.WorldLikeService;
 import benchmark.util.Util;
 import io.smallrye.mutiny.Uni;
@@ -19,25 +19,26 @@ public class DbResource {
     @Inject
     WorldLikeService worldService;
 
-    private Stream<Uni<World>> getWorldStream(String queries) {
-        return Util.randomIntStream().limit(Util.parseQueryCount(queries)).mapToObj(worldService::findFortuneById);
+    private Stream<Uni<WorldLike>> getWorldStream(String queries) {
+        return Util.randomIntStream().limit(Util.parseQueryCount(queries))
+                .mapToObj(id -> worldService.findFortuneById(id));
     }
 
     @GET
     @Path("db")
-    public Uni<World> db() {
+    public Uni<? extends WorldLike> db() {
         return worldService.findFortuneById(Util.randomInt());
     }
 
     @GET
     @Path("queries")
-    public Uni<List<World>> getQueries(@QueryParam("queries") String queries) {
+    public Uni<List<WorldLike>> getQueries(@QueryParam("queries") String queries) {
         return Uni.join().all(getWorldStream(queries).collect(toList())).andFailFast();
     }
 
     @GET
     @Path("updates")
-    public Uni<List<World>> updates(@QueryParam("queries") String queries) {
+    public Uni<List<WorldLike>> updates(@QueryParam("queries") String queries) {
         return worldService.update(getWorldStream(queries).map(world -> world.map(it -> {
             it.setRandomnumber(Util.randomInt());
             return it;

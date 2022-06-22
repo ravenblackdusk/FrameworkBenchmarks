@@ -1,7 +1,7 @@
 package benchmark.blocking.jdbc.service;
 
+import benchmark.blocking.jdbc.model.Fortune;
 import benchmark.blocking.service.FortuneLikeService;
-import benchmark.model.Fortune;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

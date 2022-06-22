@@ -1,11 +1,11 @@
 package benchmark.blocking.service;
 
-import benchmark.model.World;
+import benchmark.model.WorldLike;
 
 import java.util.List;
 
 public interface WorldLikeService {
-    World findFortuneById(int id);
+    WorldLike findFortuneById(int id);
 
-    List<World> update(List<World> worlds);
+    List<WorldLike> update(List<WorldLike> worlds);
 }

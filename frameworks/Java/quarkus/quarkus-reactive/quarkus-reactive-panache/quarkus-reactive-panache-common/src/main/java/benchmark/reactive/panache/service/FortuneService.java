@@ -1,18 +1,22 @@
 package benchmark.reactive.panache.service;
 
-import benchmark.model.Fortune;
+import benchmark.reactive.panache.model.Fortune;
+import benchmark.reactive.panache.repo.FortuneRepository;
 import benchmark.reactive.service.FortuneLikeService;
-import io.quarkus.hibernate.reactive.panache.PanacheRepository;
 import io.smallrye.mutiny.Uni;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.List;
 
 @ApplicationScoped
-public class FortuneService implements PanacheRepository<Fortune>, FortuneLikeService {
+public class FortuneService implements FortuneLikeService {
+    @Inject
+    FortuneRepository fortuneRepository;
+
     @Override
     public Uni<List<Fortune>> findAllFortunes() {
-        return findAll().list();
+        return fortuneRepository.findAll().list();
     }
 
     @Override

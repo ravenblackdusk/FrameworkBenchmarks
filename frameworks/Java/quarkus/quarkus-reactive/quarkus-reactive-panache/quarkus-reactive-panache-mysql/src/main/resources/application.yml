@@ -1,10 +1,10 @@
 quarkus:
   datasource:
     db-kind: mysql
-    jdbc:
+    reactive:
       url: jdbc:mysql://tfb-database/hello_world
 "%dev":
   quarkus:
     datasource:
-      jdbc:
+      reactive:
         url: jdbc:mysql://localhost/hello_world

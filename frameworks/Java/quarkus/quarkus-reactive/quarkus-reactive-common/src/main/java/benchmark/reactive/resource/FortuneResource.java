@@ -1,6 +1,6 @@
 package benchmark.reactive.resource;
 
-import benchmark.model.Fortune;
+import benchmark.model.FortuneLike;
 import benchmark.reactive.service.FortuneLikeService;
 import io.quarkus.qute.Template;
 import io.smallrye.mutiny.Uni;
@@ -27,6 +27,6 @@ public class FortuneResource {
                         Uni.createFrom().item(fortuneService.create(0, "Additional fortune added at request time."))).asTuple()
                 .flatMap(tuple -> fortunes.data("fs",
                         Stream.concat(tuple.getItem1().stream(), Stream.of(tuple.getItem2()))
-                                .sorted(comparing(Fortune::getMessage))).createUni());
+                                .sorted(comparing(FortuneLike::getMessage))).createUni());
     }
 }

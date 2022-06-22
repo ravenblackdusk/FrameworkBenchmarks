@@ -1,7 +1,7 @@
 package benchmark.blocking.resource;
 
 import benchmark.blocking.service.FortuneLikeService;
-import benchmark.model.Fortune;
+import benchmark.model.FortuneLike;
 import io.quarkus.qute.Template;
 
 import javax.inject.Inject;
@@ -24,6 +24,6 @@ public class FortuneResource {
     public String fortunes() {
         return fortunes.data("fs", Stream.concat(fortuneService.findAllFortunes().stream(),
                         Stream.of(fortuneService.create(0, "Additional fortune added at request time.")))
-                .sorted(comparing(Fortune::getMessage))).render();
+                .sorted(comparing(FortuneLike::getMessage))).render();
     }
 }

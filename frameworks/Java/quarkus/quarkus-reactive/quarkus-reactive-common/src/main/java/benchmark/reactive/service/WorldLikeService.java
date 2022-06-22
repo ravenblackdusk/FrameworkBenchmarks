@@ -1,12 +1,12 @@
 package benchmark.reactive.service;
 
-import benchmark.model.World;
+import benchmark.model.WorldLike;
 import io.smallrye.mutiny.Uni;
 
 import java.util.List;
 
 public interface WorldLikeService {
-    Uni<World> findFortuneById(int id);
+    Uni<WorldLike> findFortuneById(int id);
 
-    Uni<List<World>> update(List<Uni<World>> worlds);
+    Uni<List<WorldLike>> update(List<Uni<WorldLike>> worlds);
 }

@@ -1,6 +1,8 @@
-package benchmark.model;
+package benchmark.blocking.jdbc.model;
 
-public class Fortune {
+import benchmark.model.FortuneLike;
+
+public class Fortune implements FortuneLike {
     private final int id;
     private final String message;
 
@@ -9,10 +11,12 @@ public class Fortune {
         this.message = message;
     }
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public String getMessage() {
         return message;
     }

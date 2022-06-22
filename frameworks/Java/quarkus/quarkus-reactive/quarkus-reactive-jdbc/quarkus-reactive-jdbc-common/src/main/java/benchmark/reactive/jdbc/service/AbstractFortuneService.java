@@ -1,21 +1,21 @@
 package benchmark.reactive.jdbc.service;
 
-import benchmark.model.Fortune;
+import benchmark.reactive.jdbc.model.Fortune;
 import benchmark.reactive.service.FortuneLikeService;
 import io.smallrye.mutiny.Uni;
 import io.vertx.mutiny.sqlclient.Pool;
 import io.vertx.mutiny.sqlclient.Row;
 import io.vertx.mutiny.sqlclient.RowIterator;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
-@ApplicationScoped
-public class FortuneService implements FortuneLikeService {
-    @Inject
-    Pool pool;
+public abstract class AbstractFortuneService implements FortuneLikeService {
+    private Pool pool;
+
+    public void setPool(Pool pool) {
+        this.pool = pool;
+    }
 
     @Override
     public Uni<List<Fortune>> findAllFortunes() {

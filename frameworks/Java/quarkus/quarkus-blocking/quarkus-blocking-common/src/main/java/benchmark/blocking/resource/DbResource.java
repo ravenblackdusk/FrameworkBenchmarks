@@ -1,7 +1,7 @@
 package benchmark.blocking.resource;
 
 import benchmark.blocking.service.WorldLikeService;
-import benchmark.model.World;
+import benchmark.model.WorldLike;
 import benchmark.util.Util;
 
 import javax.inject.Inject;
@@ -21,25 +21,25 @@ public class DbResource {
     @Inject
     WorldLikeService worldService;
 
-    private Stream<World> getWorldStream(String queries) {
+    private Stream<WorldLike> getWorldStream(String queries) {
         return Util.randomIntStream().limit(Util.parseQueryCount(queries)).mapToObj(worldService::findFortuneById);
     }
 
     @GET
     @Path("db")
-    public World db() {
+    public WorldLike db() {
         return worldService.findFortuneById(Util.randomInt());
     }
 
     @GET
     @Path("queries")
-    public List<World> getQueries(@QueryParam("queries") String queries) {
+    public List<WorldLike> getQueries(@QueryParam("queries") String queries) {
         return getWorldStream(queries).collect(toList());
     }
 
     @GET
     @Path("updates")
-    public List<World> updates(@QueryParam("queries") String queries) {
+    public List<WorldLike> updates(@QueryParam("queries") String queries) {
         return worldService.update(
                 getWorldStream(queries).peek(world -> world.setRandomnumber(Util.randomInt())).collect(toList()));
     }
